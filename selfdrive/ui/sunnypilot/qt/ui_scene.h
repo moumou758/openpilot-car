@@ -26,7 +26,7 @@ Last updated: July 29, 2024
 
 #pragma once
 
-const float DRIVING_PATH_WIDE = 0.9;
+const float DRIVING_PATH_WIDE = 1.8;
 const float DRIVING_PATH_NARROW = 0.25;
 
 typedef struct UISceneSP : UIScene {
@@ -86,7 +86,7 @@ typedef struct UISceneSP : UIScene {
   int sidebar_temp_options;
 
   float mads_path_scale = DRIVING_PATH_WIDE - DRIVING_PATH_NARROW;
-  float mads_path_range = DRIVING_PATH_WIDE - DRIVING_PATH_NARROW;  // 0.9 - 0.25 = 0.65
+  float mads_path_range = DRIVING_PATH_WIDE - DRIVING_PATH_NARROW;  // 1.8 - 0.25 = 1.55
 
   bool onroad_settings_visible;
 
