@@ -108,8 +108,7 @@ class PowerMonitoring:
 
   # See if we need to shutdown
   def should_shutdown(self, ignition: bool, in_car: bool, offroad_timestamp: float | None, started_seen: bool):
-    if offroad_timestamp is None:
-      return False
+    return False
 
     max_time_offroad_s = interp(int(self.params.get("MaxTimeOffroad", encoding="utf8")),
                                 [0, 1,  2,  3,   4,   5,   6,    7,    8,     9,    10,    11,     12],
