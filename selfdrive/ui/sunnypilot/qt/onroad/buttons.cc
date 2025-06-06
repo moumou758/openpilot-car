@@ -31,13 +31,13 @@ Last updated: July 29, 2024
 static void drawCustomButtonIcon(QPainter &p, const int btn_size_x, const int btn_size_y, const QPixmap &img, const QBrush &bg, float opacity) {
   QPoint center(btn_size_x / 2, btn_size_y / 2);
   p.setRenderHint(QPainter::Antialiasing);
-  p.setOpacity(1.0);  // bg dictates opacity of ellipse
+  p.setOpacity(0.6);  // bg dictates opacity of ellipse
   p.setPen(Qt::NoPen);
   p.setBrush(bg);
   p.drawEllipse(center, btn_size_x / 2, btn_size_y / 2);
   p.setOpacity(opacity);
   p.drawPixmap(center - QPoint(img.width() / 2, img.height() / 2), img);
-  p.setOpacity(1.0);
+  p.setOpacity(0.6);
 }
 
 // ExperimentalButtonSP
@@ -66,7 +66,7 @@ OnroadSettingsButton::OnroadSettingsButton(QWidget *parent) : QPushButton(parent
 
 void OnroadSettingsButton::paintEvent(QPaintEvent *event) {
   QPainter p(this);
-  drawCustomButtonIcon(p, 152, 152, settings_img, QColor(0, 0, 0, 166), isDown() ? 0.6 : 1.0);
+  drawCustomButtonIcon(p, 152, 152, settings_img, QColor(0, 0, 0, 166), isDown() ? 0.5 : 0.6);
 }
 
 void OnroadSettingsButton::updateState(const UIStateSP &s) {
@@ -92,5 +92,5 @@ MapSettingsButton::MapSettingsButton(QWidget *parent) : QPushButton(parent) {
 
 void MapSettingsButton::paintEvent(QPaintEvent *event) {
   QPainter p(this);
-  drawCustomButtonIcon(p, 152, 152, settings_img, QColor(0, 0, 0, 166), isDown() ? 0.6 : 1.0);
+  drawCustomButtonIcon(p, 152, 152, settings_img, QColor(0, 0, 0, 166), isDown() ? 0.5 : 0.6);
 }
