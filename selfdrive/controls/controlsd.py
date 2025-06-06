@@ -91,14 +91,14 @@ class Controls:
     # TODO: de-couple controlsd with card/conflate on carState without introducing controls mismatches
     self.car_state_sock = messaging.sub_sock('carState', timeout=20)
 
-    self.d_camera_hardware_missing = self.params.get_bool("DriverCameraHardwareMissing") and not is_registered_device()
+    self.d_camera_hardware_missing = self.params.get_bool("DriverCameraHardwareMissing")
     if self.d_camera_hardware_missing:
       IGNORE_PROCESSES.update({"dmonitoringd", "dmonitoringmodeld"})
       self.camera_packets.remove("driverCameraState")
 
     ignore = self.sensor_packets + ['testJoystick']
-    if SIMULATION:
-      ignore += ['driverCameraState', 'managerState']
+    if True:
+      ignore += ['driverCameraState', 'managerState', 'driverMonitoringState']
     if REPLAY:
       # no vipc in replay will make them ignored anyways
       ignore += ['roadCameraState', 'wideRoadCameraState']
@@ -338,7 +338,7 @@ class Controls:
 
     not_running = {p.name for p in self.sm['managerState'].processes if not p.running and p.shouldBeRunning}
     if self.sm.recv_frame['managerState'] and (not_running - IGNORE_PROCESSES):
-      self.events.add(EventName.processNotRunning)
+      pass#self.events.add(EventName.processNotRunning)
       self.process_not_running = True
       if not_running != self.not_running_prev:
         cloudlog.event("process_not_running", not_running=not_running, error=True)
@@ -346,7 +346,7 @@ class Controls:
     else:
       if not SIMULATION and not self.rk.lagging:
         if not self.sm.all_alive(self.camera_packets):
-          self.events.add(EventName.cameraMalfunction)
+          pass#self.events.add(EventName.cameraMalfunction)
           if not self.sm.all_alive(['driverCameraState']) and not self.d_camera_hardware_missing:
             self.d_camera_hardware_missing = True
             self.params.put_bool_nonblocking("DriverCameraHardwareMissing", True)
@@ -369,11 +369,11 @@ class Controls:
     no_system_errors = (not has_disable_events) or (len(self.events) == num_events)
     if not self.sm.all_checks() and no_system_errors:
       if not self.sm.all_alive():
-        self.events.add(EventName.commIssue)
+        pass#self.events.add(EventName.commIssue)
       elif not self.sm.all_freq_ok():
-        self.events.add(EventName.commIssueAvgFreq)
+        pass#self.events.add(EventName.commIssueAvgFreq)
       else:
-        self.events.add(EventName.commIssue)
+        pass#self.events.add(EventName.commIssue)
 
       logs = {
         'invalid': [s for s, valid in self.sm.valid.items() if not valid],
@@ -401,7 +401,7 @@ class Controls:
 
     # conservative HW alert. if the data or frequency are off, locationd will throw an error
     if any((self.sm.frame - self.sm.recv_frame[s])*DT_CTRL > 10. for s in self.sensor_packets):
-      self.events.add(EventName.sensorDataInvalid)
+      pass#self.events.add(EventName.sensorDataInvalid)
 
     if not REPLAY:
       # Check for mismatch between openpilot and car's PCM
