@@ -440,11 +440,11 @@ void AnnotatedCameraWidgetSP::drawHud(QPainter &p) {
 
   QRect set_speed_rect(QPoint(60 + (default_size.width() - set_speed_size.width()) / 2, 45), set_speed_size);
   p.setPen(QPen(whiteColor(75), 6));
-  p.setBrush(blackColor(166));
+  p.setBrush(blackColor(152));
   drawRoundedRect(p, set_speed_rect, top_radius, top_radius, bottom_radius, bottom_radius);
 
   // Draw MAX
-  QColor max_color = QColor(0x80, 0xd8, 0xa6, 0xff);
+  QColor max_color = QColor(0x7f, 0xff, 0x00, 0xff);
   QColor set_speed_color = whiteColor();
   if (is_cruise_set) {
     if (status == STATUS_DISENGAGED) {
@@ -1306,11 +1306,11 @@ void AnnotatedCameraWidgetSP::rocketFuel(QPainter &p) {
   float hha = 0;
   if (vc_accel > 0) {
     hha = 0.85 - 0.1 / vc_accel;  // only extend up to 85%
-    p.setBrush(QColor(0, 245, 0, 200));
+    p.setBrush(QColor(0, 245, 0, 152));
   }
   if (vc_accel < 0) {
     hha = 0.85 + 0.1 / vc_accel; // only extend up to 85%
-    p.setBrush(QColor(245, 0, 0, 200));
+    p.setBrush(QColor(245, 0, 0, 152));
   }
   if (hha < 0) {
     hha = 0;
