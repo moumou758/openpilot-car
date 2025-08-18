@@ -69,8 +69,8 @@ procs = [
   NativeProcess("camerad", "system/camerad", ["./camerad"], driverview),
   NativeProcess("logcatd", "system/logcatd", ["./logcatd"], only_onroad),
   NativeProcess("proclogd", "system/proclogd", ["./proclogd"], only_onroad),
-  PythonProcess("logmessaged", "system.logmessaged", always_run),
-  PythonProcess("micd", "system.micd", iscar),
+  #PythonProcess("logmessaged", "system.logmessaged", always_run),
+  #PythonProcess("micd", "system.micd", iscar),
   PythonProcess("timed", "system.timed", always_run, enabled=not PC),
 
   #PythonProcess("dmonitoringmodeld", "selfdrive.modeld.dmonitoringmodeld", driverview, enabled=(not PC or WEBCAM)),
@@ -82,7 +82,7 @@ procs = [
   PythonProcess("navmodeld", "selfdrive.modeld.navmodeld", model_use_nav),
   NativeProcess("sensord", "system/sensord", ["./sensord"], only_onroad, enabled=not PC),
   NativeProcess("ui", "selfdrive/ui", ["./ui"], always_run, watchdog_max_dt=(5 if not PC else None)),
-  PythonProcess("soundd", "selfdrive.ui.soundd", only_onroad),
+  #PythonProcess("soundd", "selfdrive.ui.soundd", only_onroad),
   NativeProcess("locationd", "selfdrive/locationd", ["./locationd"], only_onroad),
   NativeProcess("pandad", "selfdrive/pandad", ["./pandad"], always_run, enabled=False),
   PythonProcess("calibrationd", "selfdrive.locationd.calibrationd", only_onroad),
@@ -105,6 +105,7 @@ procs = [
   PythonProcess("updated", "system.updated.updated", only_offroad, enabled=not PC),
   PythonProcess("uploader", "system.loggerd.uploader", always_run),
   PythonProcess("statsd", "system.statsd", always_run),
+  PythonProcess("beep", "selfdrive.controls.beep", always_run),
 
   # PFEIFER - MAPD {{
   NativeProcess("mapd", COMMON_DIR, [MAPD_PATH], always_run, enabled=not PC),
